@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class TiendaDescuentoClientes {
 
-    public static final double DESC_ROPA = 0.10;       // 10%
-    public static final double DESC_TECNOLOGIA = 0.05; // 5%
-    public static final double DESC_ALIMENTOS = 0.02;  // 2%
+    public static final double DESC_ROPA = 0.10;       
+    public static final double DESC_TECNOLOGIA = 0.05; 
+    public static final double DESC_ALIMENTOS = 0.02; 
     
     public static final double UMBRAL_ADICIONAL = 500000;
-    public static final double DESC_ADICIONAL = 0.05;  // 5%
+    public static final double DESC_ADICIONAL = 0.05;  
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -73,7 +73,7 @@ public class TiendaDescuentoClientes {
 
   
         double ahorro = totalSinDescuento - totalConDescuento;
-        System.out.println("\n===== RESUMEN DE COMPRA =====");
+        System.out.println("\nRESUMEN DE COMPRA");
         for (int i = 0; i < n; i++) {
             System.out.println("Producto: " + nombres[i] + " | Precio: $" + precios[i]);
         }
