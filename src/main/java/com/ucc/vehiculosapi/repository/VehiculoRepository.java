@@ -18,7 +18,7 @@ public interface VehiculoRepository extends MongoRepository<Vehiculo, String> {
     
     List<Vehiculo> findByEstado(String estado);
     
-    List<Vehiculo> findByPrecioGreaterThanAndPriceioLessThan(Double precioMin, Double precioMax);
+    List<Vehiculo> findByPrecioGreaterThanAndPrecioLessThan(Double min, Double max);
     
     List<Vehiculo> findByAnno(Integer anno);
 }
