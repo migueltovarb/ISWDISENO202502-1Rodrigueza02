@@ -1,8 +1,0 @@
-com\vehiculos\controller\VehiculoController.class
-com\vehiculos\exception\GlobalExceptionHandler$ErrorResponse.class
-com\vehiculos\service\VehiculoService.class
-com\vehiculos\model\Vehiculo.class
-com\vehiculos\VehiculosApiApplication.class
-com\vehiculos\exception\GlobalExceptionHandler.class
-com\vehiculos\repository\VehiculoRepository.class
-com\vehiculos\dto\VehiculoDTO.class
