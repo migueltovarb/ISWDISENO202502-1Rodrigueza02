@@ -1,42 +1,5 @@
 # Sistema de Gestión Automotriz
 
-## Arquitectura del Proyecto
-
-\`\`\`
-src/
-├── main/
-│   ├── java/com/automotriz/
-│   │   ├── SistemaAutomotrizApplication.java
-│   │   ├── controller/
-│   │   │   ├── ManufacturaController.java
-│   │   │   ├── InstalacionController.java
-│   │   │   └── AutomovilController.java
-│   │   ├── service/
-│   │   │   ├── ManufacturaService.java
-│   │   │   ├── InstalacionService.java
-│   │   │   └── AutomovilService.java
-│   │   ├── repository/
-│   │   │   ├── ManufacturaRepository.java
-│   │   │   ├── InstalacionRepository.java
-│   │   │   └── AutomovilRepository.java
-│   │   ├── model/
-│   │   │   ├── Manufactura.java
-│   │   │   ├── Instalacion.java
-│   │   │   └── Automovil.java
-│   │   ├── dto/
-│   │   │   ├── ManufacturaDTO.java
-│   │   │   ├── InstalacionDTO.java
-│   │   │   └── AutomovilDTO.java
-│   │   └── exception/
-│   │       ├── ManejadorExcepcionesGlobal.java
-│   │       ├── RecursoNoEncontradoException.java
-│   │       ├── OperacionInvalidaException.java
-│   │       └── ErrorResponse.java
-│   └── resources/
-│       └── application.yml
-└── pom.xml
-\`\`\`
-
 ### Ejecutar la aplicación
 
 \`\`\`bash
