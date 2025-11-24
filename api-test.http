@@ -1,0 +1,413 @@
+# Sistema de Gestión Académica - API Tests
+# Base URL: http://localhost:8081
+
+### ============================================================================
+### HEALTH CHECK
+### ============================================================================
+
+### Health Check - Verificar estado del sistema
+GET http://localhost:8081/api/health
+
+### ============================================================================
+### AUTENTICACIÓN (No requiere token)
+### ============================================================================
+
+### Registro de Usuario
+POST http://localhost:8081/auth/register
+Content-Type: application/json
+
+{
+  "email": "admin@test.com",
+  "password": "Admin123",
+  "fullName": "Administrador del Sistema",
+  "phone": "+57 300 123 4567",
+  "role": "ADMIN",
+  "document": "12345678"
+}
+
+### Login - Obtener token de autenticación
+POST http://localhost:8081/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@test.com",
+  "password": "Admin123"
+}
+
+### Activar Usuario (por email)
+PUT http://localhost:8081/auth/activate/user@test.com
+Content-Type: application/json
+
+### Logout
+POST http://localhost:8081/auth/logout
+Content-Type: application/json
+
+### ============================================================================
+### USUARIOS (Requiere autenticación - ADMIN para operaciones de escritura)
+### ============================================================================
+
+### Crear Usuario (ADMIN)
+POST http://localhost:8081/api/users
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDAyNDAxNiwiZXhwIjoxNzY0MTEwNDE2fQ.cs0NhdJDu8Sw9ZhW_kVEI99JySOENrdVi1xz1Ln2ouz6ODzZsyNYdlq3rXlj2-x8KOXo2PWFirosvO-A8xXHJA
+
+{
+  "email": "teacher@test.com",
+  "password": "Teacher123",
+  "fullName": "Profesor de Matemáticas",
+  "phone": "+57 301 234 5678",
+  "role": "TEACHER",
+  "document": "87654321",
+  "active": true,
+  "locked": false
+}
+
+### Crear Estudiante (ADMIN)
+POST http://localhost:8081/api/users
+Content-Type: application/json
+Cookie: token={{eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDAyNDAxNiwiZXhwIjoxNzY0MTEwNDE2fQ.cs0NhdJDu8Sw9ZhW_kVEI99JySOENrdVi1xz1Ln2ouz6ODzZsyNYdlq3rXlj2-x8KOXo2PWFirosvO-A8xXHJA}}
+
+{
+  "email": "student@test.com",
+  "password": "Student123",
+  "fullName": "Estudiante de Ingeniería",
+  "phone": "+57 302 345 6789",
+  "role": "STUDENT",
+  "document": "11223344",
+  "active": true,
+  "locked": false
+}
+
+### Obtener Todos los Usuarios (ADMIN)
+GET http://localhost:8081/api/users
+Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDAyNDAxNiwiZXhwIjoxNzY0MTEwNDE2fQ.cs0NhdJDu8Sw9ZhW_kVEI99JySOENrdVi1xz1Ln2ouz6ODzZsyNYdlq3rXlj2-x8KOXo2PWFirosvO-A8xXHJA
+
+### Obtener Usuario por ID
+GET http://localhost:8081/api/users/{userId}
+Cookie: token={{token}}
+
+### Actualizar Usuario
+PUT http://localhost:8081/api/users/{userId}
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "email": "student@test.com",
+  "fullName": "Estudiante de Ingeniería Actualizado",
+  "phone": "+57 302 345 6789",
+  "role": "STUDENT",
+  "document": "11223344",
+  "active": true,
+  "locked": false
+}
+
+### Bloquear/Desbloquear Usuario (ADMIN)
+PUT http://localhost:8081/api/users/{userId}/lock?lock=true
+Cookie: token={{token}}
+
+### Obtener Usuarios por Rol (ADMIN)
+GET http://localhost:8081/api/users/role/STUDENT
+Cookie: token={{token}}
+
+### Eliminar Usuario (ADMIN)
+DELETE http://localhost:8081/api/users/{userId}
+Cookie: token={{token}}
+
+### ============================================================================
+### MATERIAS (Requiere autenticación)
+### ============================================================================
+
+### Crear Materia
+POST http://localhost:8081/api/subjects
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "name": "Matemáticas Avanzadas",
+  "description": "Curso de cálculo diferencial e integral",
+  "credits": 4
+}
+
+### Crear Materia 2
+POST http://localhost:8081/api/subjects
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "name": "Programación Orientada a Objetos",
+  "description": "Fundamentos de POO con Java",
+  "credits": 3
+}
+
+### Obtener Todas las Materias
+GET http://localhost:8081/api/subjects
+Cookie: token={{token}}
+
+### Obtener Materia por ID
+GET http://localhost:8081/api/subjects/{subjectId}
+Cookie: token={{token}}
+
+### Actualizar Materia
+PUT http://localhost:8081/api/subjects/{subjectId}
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "name": "Matemáticas Avanzadas II",
+  "description": "Curso avanzado de cálculo diferencial e integral",
+  "credits": 5
+}
+
+### Eliminar Materia
+DELETE http://localhost:8081/api/subjects/{subjectId}
+Cookie: token={{token}}
+
+### ============================================================================
+### CALIFICACIONES (Requiere autenticación - TEACHER para escritura)
+### ============================================================================
+
+### Crear Calificación (TEACHER)
+POST http://localhost:8081/grades
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "studentId": "{studentId}",
+  "subjectId": "{subjectId}",
+  "teacherId": "{teacherId}",
+  "groupId": "{groupId}",
+  "grade": 4.5,
+  "type": "PARCIAL_1",
+  "comments": "Excelente desempeño en el examen",
+  "date": "2025-11-24"
+}
+
+### Crear Calificación 2 (TEACHER)
+POST http://localhost:8081/grades
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "studentId": "{studentId}",
+  "subjectId": "{subjectId}",
+  "teacherId": "{teacherId}",
+  "groupId": "{groupId}",
+  "grade": 3.8,
+  "type": "PARCIAL_2",
+  "comments": "Buen trabajo en el proyecto",
+  "date": "2025-11-24"
+}
+
+### Obtener Calificación por ID
+GET http://localhost:8081/grades/{gradeId}
+Cookie: token={{token}}
+
+### Obtener Calificaciones de Estudiante
+GET http://localhost:8081/grades/student/{studentId}
+Cookie: token={{token}}
+
+### Obtener Calificaciones de Grupo (TEACHER/ADMIN)
+GET http://localhost:8081/grades/group/{groupId}
+Cookie: token={{token}}
+
+### Obtener Calificaciones de Profesor (TEACHER)
+GET http://localhost:8081/grades/teacher/{teacherId}
+Cookie: token={{token}}
+
+### Actualizar Calificación (TEACHER)
+PUT http://localhost:8081/grades/{gradeId}
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "studentId": "{studentId}",
+  "subjectId": "{subjectId}",
+  "teacherId": "{teacherId}",
+  "groupId": "{groupId}",
+  "grade": 4.2,
+  "type": "PARCIAL_1",
+  "comments": "Calificación corregida",
+  "date": "2025-11-24"
+}
+
+### Eliminar Calificación (TEACHER)
+DELETE http://localhost:8081/grades/{gradeId}
+Cookie: token={{token}}
+
+### Obtener Promedio de Estudiante
+GET http://localhost:8081/grades/student/{studentId}/average
+Cookie: token={{token}}
+
+### Obtener Promedio de Grupo (TEACHER/ADMIN)
+GET http://localhost:8081/grades/group/{groupId}/average
+Cookie: token={{token}}
+
+### ============================================================================
+### GRUPOS (Requiere autenticación)
+### ============================================================================
+
+### Crear Grupo
+POST http://localhost:8081/api/groups
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "name": "Grupo A - Matemáticas",
+  "subjectId": "{subjectId}",
+  "teacherId": "{teacherId}",
+  "academicPeriodId": "{academicPeriodId}",
+  "schedule": "Lunes y Miércoles 2:00-4:00 PM",
+  "capacity": 30
+}
+
+### Obtener Todos los Grupos
+GET http://localhost:8081/api/groups
+Cookie: token={{token}}
+
+### Obtener Grupo por ID
+GET http://localhost:8081/api/groups/{groupId}
+Cookie: token={{token}}
+
+### Actualizar Grupo
+PUT http://localhost:8081/api/groups/{groupId}
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "name": "Grupo A - Matemáticas Avanzadas",
+  "subjectId": "{subjectId}",
+  "teacherId": "{teacherId}",
+  "academicPeriodId": "{academicPeriodId}",
+  "schedule": "Lunes y Miércoles 2:00-4:00 PM",
+  "capacity": 25
+}
+
+### Eliminar Grupo
+DELETE http://localhost:8081/api/groups/{groupId}
+Cookie: token={{token}}
+
+### ============================================================================
+### MATRÍCULAS (Requiere autenticación)
+### ============================================================================
+
+### Crear Matrícula
+POST http://localhost:8081/enrollments
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "studentId": "{studentId}",
+  "groupId": "{groupId}",
+  "enrollmentDate": "2025-11-24",
+  "status": "ACTIVE"
+}
+
+### Obtener Todas las Matrículas
+GET http://localhost:8081/enrollments
+Cookie: token={{token}}
+
+### Obtener Matrícula por ID
+GET http://localhost:8081/enrollments/{enrollmentId}
+Cookie: token={{token}}
+
+### Obtener Matrículas de Estudiante
+GET http://localhost:8081/enrollments/student/{studentId}
+Cookie: token={{token}}
+
+### Obtener Matrículas de Grupo
+GET http://localhost:8081/enrollments/group/{groupId}
+Cookie: token={{token}}
+
+### Actualizar Matrícula
+PUT http://localhost:8081/enrollments/{enrollmentId}
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "studentId": "{studentId}",
+  "groupId": "{groupId}",
+  "enrollmentDate": "2025-11-24",
+  "status": "COMPLETED"
+}
+
+### Eliminar Matrícula
+DELETE http://localhost:8081/enrollments/{enrollmentId}
+Cookie: token={{token}}
+
+### ============================================================================
+### PERIODOS ACADÉMICOS (Requiere autenticación)
+### ============================================================================
+
+### Crear Periodo Académico
+POST http://localhost:8081/api/academic-periods
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "name": "2025-1",
+  "description": "Primer semestre 2025",
+  "startDate": "2025-01-15",
+  "endDate": "2025-06-15",
+  "active": true
+}
+
+### Obtener Todos los Periodos Académicos
+GET http://localhost:8081/api/academic-periods
+Cookie: token={{token}}
+
+### Obtener Periodo Académico por ID
+GET http://localhost:8081/api/academic-periods/{periodId}
+Cookie: token={{token}}
+
+### Actualizar Periodo Académico
+PUT http://localhost:8081/api/academic-periods/{periodId}
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "name": "2025-1",
+  "description": "Primer semestre 2025 - Actualizado",
+  "startDate": "2025-01-15",
+  "endDate": "2025-06-15",
+  "active": true
+}
+
+### Eliminar Periodo Académico
+DELETE http://localhost:8081/api/academic-periods/{periodId}
+Cookie: token={{token}}
+
+
+### ============================================================================
+### INSTRUCCIONES DE USO
+### ============================================================================
+
+# 1. Reemplaza {token} con el token real obtenido del login
+# 2. Reemplaza los IDs ({userId}, {subjectId}, etc.) con IDs reales de la BD
+# 3. Los endpoints marcados requieren roles específicos (ADMIN/TEACHER)
+# 4. El backend corre en http://localhost:8081
+# 5. Para testing con Postman/VS Code REST Client, usa las cookies
+
+# MAPA DE ENDPOINTS:
+# Auth: /auth/*
+# Health: /api/health
+# Users: /api/users/*
+# Subjects: /api/subjects/*
+# Grades: /grades/*
+# Groups: /api/groups/*
+# Enrollments: /enrollments/*
+# Academic Periods: /api/academic-periods/*
+
+# Variables de ejemplo (reemplaza con IDs reales):
+# {userId} = ID de usuario de la base de datos
+# {subjectId} = ID de materia
+# {teacherId} = ID de profesor
+# {studentId} = ID de estudiante
+# {groupId} = ID de grupo
+# {periodId} = ID de periodo académico
+# {gradeId} = ID de calificación
+# {enrollmentId} = ID de matrícula
+
+# Para obtener tokens de diferentes roles:
+# - Admin: usa admin@test.com / Admin123
+# - Teacher: usa teacher@test.com / Teacher123
+# - Student: usa student@test.com / Student123
