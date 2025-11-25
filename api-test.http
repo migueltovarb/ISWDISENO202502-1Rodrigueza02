@@ -65,7 +65,7 @@ Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsInJvbGUiOiJBR
 ### Crear Estudiante (ADMIN)
 POST http://localhost:8081/api/users
 Content-Type: application/json
-Cookie: token={{eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDAyNDAxNiwiZXhwIjoxNzY0MTEwNDE2fQ.cs0NhdJDu8Sw9ZhW_kVEI99JySOENrdVi1xz1Ln2ouz6ODzZsyNYdlq3rXlj2-x8KOXo2PWFirosvO-A8xXHJA}}
+Cookie: token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDAyNTc5MywiZXhwIjoxNzY0MTEyMTkzfQ.KZV9LfajqhwXxbKIpv9Ucy4ymo_Ouxr0gIy2veVuRh-rE03UmdR0-pAcoC9Z2jZqsanIK0B9i6RA4LTj7ckyPA
 
 {
   "email": "student@test.com",
@@ -204,7 +204,7 @@ Cookie: token={{token}}
 
 ### Obtener Calificaciones de Estudiante
 GET http://localhost:8081/grades/student/{studentId}
-Cookie: token={{token}}
+Cookie: token={{eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc2NDAyNTc5MywiZXhwIjoxNzY0MTEyMTkzfQ.KZV9LfajqhwXxbKIpv9Ucy4ymo_Ouxr0gIy2veVuRh-rE03UmdR0-pAcoC9Z2jZqsanIK0B9i6RA4LTj7ckyPA}}
 
 ### Obtener Calificaciones de Grupo (TEACHER/ADMIN)
 GET http://localhost:8081/grades/group/{groupId}
